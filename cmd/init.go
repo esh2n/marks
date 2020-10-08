@@ -29,6 +29,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// for docker
+var lang string
+
 var dirName string
 var initCmd = &cobra.Command{
 	Use:   "init",
@@ -36,13 +39,21 @@ var initCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		if dirName != "" {
 			fmt.Println("marks: " + dirName + " creating...")
-
-			cloneCmd := exec.Command("git", "clone", "https://github.com/shunyaendoh1215/markup-template.git", dirName)
-			if err := cloneCmd.Start(); err != nil {
-				fmt.Println(err)
-				os.Exit(1)
+			if lang != "" {
+				cloneCmd := exec.Command("git", "clone", "-b", lang, "https://github.com/shunyaendoh1215/docker-file.git", dirName)
+				if err := cloneCmd.Start(); err != nil {
+					fmt.Println(err)
+					os.Exit(1)
+				}
+				cloneCmd.Wait()
+			} else {
+				cloneCmd := exec.Command("git", "clone", "https://github.com/shunyaendoh1215/markup-template.git", dirName)
+				if err := cloneCmd.Start(); err != nil {
+					fmt.Println(err)
+					os.Exit(1)
+				}
+				cloneCmd.Wait()
 			}
-			cloneCmd.Wait()
 			os.Chdir("./" + dirName)
 			remoteCmd := exec.Command("git", "remote", "remove", "origin")
 			if err := remoteCmd.Start(); err != nil {
@@ -60,4 +71,5 @@ var initCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(initCmd)
 	initCmd.PersistentFlags().StringVarP(&dirName, "dirName", "d", "", "directory name")
+	initCmd.PersistentFlags().StringVarP(&lang, "lang", "l", "", "docker template flag")
 }
