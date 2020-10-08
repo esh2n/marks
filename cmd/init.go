@@ -61,6 +61,12 @@ var initCmd = &cobra.Command{
 				os.Exit(1)
 			}
 			remoteCmd.Wait()
+			removeCmd := exec.Command("rm", "-rf", ".git")
+			if err := removeCmd.Start(); err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+			removeCmd.Wait()
 			fmt.Println("marks: finish!")
 		} else {
 			fmt.Println("Error: expected 1 argument but not existed.")
