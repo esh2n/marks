@@ -1,9 +1,9 @@
 <h1 align="center">Marks 👋</h1>
 
 > Development environment Generator.
+>
 > You can use langs below.
 
-<br/>
 <img align="left" height='34' src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/vue/vue.png' />
 
 <img align="left" height='34' src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png' />
